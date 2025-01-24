@@ -15,5 +15,5 @@
 # create .env file
 
 ```
-VITE_BOOKS_URL = http://localhost:3000
+VITE_BOOKS_URL = http://localhost:3000/books
 ```
