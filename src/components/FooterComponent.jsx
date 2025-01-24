@@ -19,10 +19,13 @@ function FooterComponent() {
                 <a href="https://github.com/Abraxas-7" target="_blank" className="text-blue-200 hover:underline">
                   Arber Beshaj
                 </a>
+                <a href="https://github.com/aandrea-boatoo" target="_blank" className="text-blue-200 hover:underline">
+                  Andrea Boato
+                </a>
             </div>
 
         </div>
-        <div className="container mx-auto pt-4">
+        <div className="container mx-auto pt-3">
             <p className="text-sm">&copy; 2025 Boolean Book-Shop. All rights reserved.</p>
         </div>
         
