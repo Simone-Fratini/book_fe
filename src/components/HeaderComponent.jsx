@@ -8,7 +8,7 @@ function HeaderComponent() {
     <header className="bg-gradient-to-r from-blue-800 to-blue-600 text-white p-6 shadow-lg rounded-b-2xl">
         <div className="container mx-auto flex items-center justify-between">
             {/* Logo */}
-            <div className="text-3xl font-extrabold tracking-wide">Boolean Book-Shop</div>
+            <div className="text-3xl font-extrabold">Boolean Book-Shop</div>
 
             {/* Nav */}
             <nav className="flex space-x-6 text-lg">
