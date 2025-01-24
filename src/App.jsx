@@ -1,18 +1,21 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import DefaultLayout from "./pages/DefaultLayout";
+import HomePage from "./pages/Homepage";
+import About from "./pages/About";
+import Bookdetail from "./pages/Bookdetail";
 
 function App() {
     return (
-        <>
-            <h1 className="w-full py-4 text-6xl text-center">
-                My React Template
-            </h1>
-            <h2 className="py-4 text-3xl text-center">Packages installed:</h2>
-            <ul className="text-center">
-                <li>Tailwind css</li>
-                <li>react-router-dom</li>
-                <li>axios</li>
-            </ul>
-        </>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" Component={DefaultLayout}>
+                    <Route index Component={HomePage}></Route>
+                    <Route path="about" Component={About}></Route>
+                    <Route path=":id" Component={Bookdetail}></Route>
+                </Route>
+            </Routes>
+        </BrowserRouter>
     );
 }
 
