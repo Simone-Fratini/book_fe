@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import About from "./pages/About";
 
 function HeaderComponent() {
   return (
