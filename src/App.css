@@ -1,0 +1,36 @@
+.about-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.about-section {
+  flex: 1;
+  max-width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  border-radius: 20px;
+  background-color: white;
+}
+.about-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: blue;
+  margin-bottom: 10px;
+}
+
+.about-text {
+  margin-bottom: 10px;
+}
+
+.about-image-container {
+  display: flex;
+  justify-content: center;
+}
+
+.about-image {
+  width: 100%;
+  max-width: 500px;
+}
