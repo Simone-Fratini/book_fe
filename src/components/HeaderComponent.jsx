@@ -13,7 +13,7 @@ function HeaderComponent() {
             <Link to="/about" className="hover:text-blue-300">About</Link>
         </nav>
       </div>        
-</header>
+    </header>
   )
 }
 
