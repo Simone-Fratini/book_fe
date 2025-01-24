@@ -1,9 +1,5 @@
-import React from 'react'
+import MainComponent from "../components/MainComponent";
 
-function Homepage() {
-  return (
-    <div>Homepage</div>
-  )
+export default function HomePage() {
+  return <MainComponent />;
 }
-
-export default Homepage
