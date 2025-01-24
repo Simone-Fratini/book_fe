@@ -2,6 +2,12 @@
 
 # Libraries installed
 
--   Tailwind css
--   react-router-dom
--   axios
+- Tailwind css
+- react-router-dom
+- axios
+
+-Routing: AJ
+
+- Header/Footer: Simone
+  -pages: Arber
+  -card:
