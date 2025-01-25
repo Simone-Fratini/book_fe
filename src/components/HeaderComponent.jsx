@@ -25,11 +25,11 @@ function HeaderComponent() {
 
             {/* Nav */}
             <nav className="flex space-x-6 text-lg">
-                <Link to="/" className="flex items-center space-x-1 hover:text-blue-300 transition-colors duration-300">
+                <Link to="/home" className="flex items-center space-x-1 hover:text-blue-300 transition-colors duration-300">
                     <FaHome className="text-xl" />
                     <span>Home</span>
                 </Link>
-                <Link to="/about" className="flex items-center space-x-1 hover:text-blue-300 transition-colors duration-300">
+                <Link to="/home/about" className="flex items-center space-x-1 hover:text-blue-300 transition-colors duration-300">
                     <IoInformationCircleOutline className="text-xl" />
                     <span>About</span>
                 </Link>
