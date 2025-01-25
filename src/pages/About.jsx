@@ -1,4 +1,9 @@
+import { useState } from "react";
 function About() {
+  const [selectedMember, setSelectedMember] = useState(null);
+  const handlePopup = () => {
+    setSelectedMember(null);
+  };
   return (
     <div className="bg-blue-50 min-h-screen">
       <main className="max-w-6xl mx-auto px-4 py-8">
@@ -43,8 +48,12 @@ function About() {
             {[
               {
                 name: "Simone Fratini",
-                role: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                role: "Web Developer",
                 img: "https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                email: "SimoneFratini@gmail.com",
+                phone: "333 333 3333",
+                github: "https://github.com/Simone-Fratini",
+                linkedin: "SimoneFratini",
               },
               {
                 name: "Ajhay Herrera",
@@ -80,13 +89,49 @@ function About() {
                   <div>
                     <h4 className="font-semibold text-lg">{member.name}</h4>
                   </div>
-                  <button className="bg-blue-500 hover:bg-blue-900 text-white px-4 py-2 rounded">
+                  <button
+                    className="bg-blue-500 hover:bg-blue-900 text-white px-4 py-2 rounded"
+                    onClick={() => setSelectedMember(member)}
+                  >
                     Contattami
                   </button>
                 </div>
               </div>
             ))}
           </div>
+        </section>
+        {/* popup  */}
+        <section>
+          {selectedMember && (
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
+              <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+                <h2 className="font-semibold text-lg mb-4 text-center text-sky-500">
+                  {selectedMember.name}
+                </h2>
+                <img
+                  src={selectedMember.img}
+                  alt={selectedMember.name}
+                  className="mb-4 w-full h-44 object-cover"
+                />
+                <p>Email: {selectedMember.email}</p>
+                <p>Phone: {selectedMember.phone}</p>
+                <a href="https://github.com/Simone-Fratin" target="_blank"></a>
+                <p>
+                  Github:{" "}
+                  <a href="https://github.com/Simone-Fratini" target="_blank">
+                    Visita il profilo
+                  </a>
+                </p>
+                <p>Linkedin: {selectedMember.linkedin}</p>
+                <button
+                  onClick={handlePopup}
+                  className="mt-4 bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded "
+                >
+                  Chiudi
+                </button>
+              </div>
+            </div>
+          )}
         </section>
       </main>
     </div>
