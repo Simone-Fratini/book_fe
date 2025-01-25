@@ -16,4 +16,5 @@
 
 ```
 VITE_BOOKS_URL = http://localhost:3000/books
+VITE_BOOK_IMG_URL = http://localhost:3000/images/books
 ```
