@@ -4,12 +4,16 @@ import DefaultLayout from "./pages/DefaultLayout";
 import HomePage from "./pages/Homepage";
 import About from "./pages/About";
 import Bookdetail from "./pages/Bookdetail";
+import HeroPage from "./pages/HeroPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" Component={DefaultLayout}>
+        {/* HERO PAGE */}
+        <Route path="/" Component={HeroPage} />
+        
+        <Route path="/home" Component={DefaultLayout}>
           <Route index Component={HomePage}></Route>
           <Route path="about" Component={About}></Route>
           <Route path=":id" Component={Bookdetail}></Route>
