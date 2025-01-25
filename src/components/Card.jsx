@@ -1,17 +1,17 @@
 export default function Card({ book }) {
   return (
-    <div className="card" style={{ width: "100%" }}>
+    <div className="p-4 bg-blue-300" style={{ width: "100%" }}>
       <img
         src={book.image}
         className="card-img-top"
         alt={book.title}
         style={{ objectFit: "cover", height: "350px" }}
       />
-      <div className="card-body">
-        <h5 className="card-title">{book.title}</h5>
-        <p className="card-text fst-italic">{book.author}</p>
+      <div>
+        <h5 className="text-3xl">{book.title}</h5>
+        <p className="text-xl italic">{book.author}</p>
         <p className="card-text">{book.abstract}</p>
-        <button className="btn btn-primary">Dettagli</button>
+        <button className="px-4 py-1 text-white bg-blue-600 rounded-xl">Dettagli</button>
       </div>
     </div>
   );
