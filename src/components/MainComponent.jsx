@@ -11,7 +11,7 @@ export default function MainComponent() {
     const fetchBooks = () => {
         axios.get(`${apiUrl}`).then((res) => {
             setBooks(res.data);
-            console.log(res.data);
+            // console.log(res.data);
         });
     };
 
