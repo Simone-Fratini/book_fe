@@ -15,9 +15,9 @@ export default function MainComponent() {
         });
     };
 
-    useEffect(() => {
-        fetchBooks();
-    }, []);
+    // useEffect(() => {
+    //     fetchBooks();
+    // }, []);
 
   return (
     <div className="mx-16 my-4">
