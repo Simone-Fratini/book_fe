@@ -6,12 +6,12 @@ import axios from "axios";
 export default function MainComponent() {
     const [books, setBooks] = useState([]);
 
-    const apiUrls = import.meta.env.VITE_BOOKS_URL;
+    const apiUrl = import.meta.env.VITE_BOOKS_URL;
 
     const fetchBooks = () => {
-        axios.get(`${apiUrls}`).then((res) => {
+        axios.get(`${apiUrl}`).then((res) => {
             setBooks(res.data);
-            // console.log(res.data);
+            console.log(res.data);
         });
     };
 
