@@ -5,6 +5,7 @@ import HomePage from "./pages/Homepage";
 import About from "./pages/About";
 import Bookdetail from "./pages/Bookdetail";
 import HeroPage from "./pages/HeroPage";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="about" Component={About}></Route>
           <Route path=":id" Component={Bookdetail}></Route>
         </Route>
+        <Route path="*" Component={ErrorPage} />
       </Routes>
     </BrowserRouter>
   );
