@@ -1,8 +1,14 @@
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-export default function Card({ book }) {
+export default function Card({ book, cardAnimation }) {
+  
+
   return (
-    <div className="p-4 w-full">
+    <motion.div
+      variants={cardAnimation}
+      className="p-4 w-full"
+    >
       <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 h-[500px] flex flex-col">
         <div className="relative w-full h-[250px] bg-gray-100">
           <img
@@ -24,6 +30,6 @@ export default function Card({ book }) {
           </Link>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
