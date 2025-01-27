@@ -20,7 +20,7 @@ function HeaderComponent() {
 
   return (
     <>
-      {/* Hamburger Menu Button only visible on small screens */}
+      {/* Hamburger Menu */}
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         className="text-white md:hidden"
@@ -28,7 +28,7 @@ function HeaderComponent() {
         <FaBars />
       </button>
 
-      {/* Desktop Navigation Menu (hidden on small screens) */}
+      {/* Desktop Navigation Menu schermo grande */}
       <nav className="hidden md:flex space-x-6 text-lg">
         <Link
           to="/home"
@@ -44,9 +44,21 @@ function HeaderComponent() {
           <IoInformationCircleOutline className="text-xl" />
           <span>About</span>
         </Link>
+
+        {/* Dark Mode Button for Desktop */}
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className="p-2 border rounded-full hover:bg-gray-200 hover:text-gray-500 transition duration-300"
+        >
+          {darkMode ? (
+            <FiSun className="text-md" />
+          ) : (
+            <FaMoon className="text-md" />
+          )}
+        </button>
       </nav>
 
-      {/* Mobile Menu (shows when isMenuOpen is true) */}
+      {/* Mobile Menu schermi piccoli */}
       {isMenuOpen && (
         <div className="absolute top-16 right-6 bg-blue-600 text-white rounded-lg shadow-lg py-4 px-6 md:hidden">
           <ul className="flex flex-col space-y-4">
