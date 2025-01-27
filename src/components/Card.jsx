@@ -1,24 +1,8 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
-const cardAnimation = {
-  hidden: { opacity: 0, y: 60 }, 
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5, 
-      ease: "easeOut",
-    },
-  },
-};
 
 export default function Card({ book }) {
   return (
-    <motion.div
-      variants={cardAnimation} 
-      className="p-4 w-full"
-    >
+    <div className="p-4 w-full">
       <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 h-[500px] flex flex-col">
         <div className="relative w-full h-[250px] bg-gray-100">
           <img
@@ -46,6 +30,6 @@ export default function Card({ book }) {
           </Link>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

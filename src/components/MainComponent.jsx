@@ -19,18 +19,6 @@ export default function MainComponent() {
     fetchBooks();
   }, []);
 
-  // Variants 
-  const containerAnimation = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2, 
-        delayChildren: 0.3,
-      },
-    },
-  };
-
   return (
     <div className="mx-16 my-4">
       <div className="text-center pb-10">
@@ -41,16 +29,24 @@ export default function MainComponent() {
           The nerdest book community
         </h2>
       </div>
-      <motion.div
-        variants={containerAnimation}
-        initial="hidden"
-        animate="visible"
-        className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 lg:mx-24"
-      >
-        {books.map((book) => (
-          <Card key={book.id} book={book} />
-        ))}
-      </motion.div>
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 lg:mx-24">
+  
+          {books.map((book, index) => (
+            <motion.div
+              key={book.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.2,
+                ease: "easeOut"
+              }}
+            >
+              <Card book={book} />
+            </motion.div>
+          ))}
+
+      </div>
     </div>
   );
 }
