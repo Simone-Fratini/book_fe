@@ -1,13 +1,23 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { animationContainer, animationContainerStory, fadeDownVariant, fadeLeftVariant, fadeRightVariant, fadeVariant,} from "../animations/animationUtils";
+
 function About() {
   const [selectedMember, setSelectedMember] = useState(null);
   const handlePopup = () => {
     setSelectedMember(null);
   };
+
   return (
     <div className="bg-blue-50 min-h-screen">
-      <main className="max-w-6xl mx-auto px-4 py-8">
-        <section className="text-center mb-12">
+      <motion.main 
+      initial="hidden"
+      animate="visible"
+      variants={animationContainer}
+      className="max-w-6xl mx-auto px-4 py-8">
+        <motion.section
+        variants={fadeDownVariant}
+        className="text-center mb-12">
           {/* Chi siamo */}
           <h2 className="text-3xl font-bold mb-4">About the Team</h2>
           <p className="text-gray-700 mb-6">
@@ -20,10 +30,10 @@ function About() {
             labore officiis ab, distinctio nesciunt veritatis eum quaerat.
             Necessitatibus, voluptatum!
           </p>
-        </section>
+        </motion.section>
         {/* la nostra storia */}
-        <section className="flex flex-col md:flex-row items-center gap-8 mb-16">
-          <div className="flex-1 text-gray-700">
+        <motion.section variants={animationContainerStory} className="flex flex-col md:flex-row items-center gap-8 mb-16">
+          <motion.div variants={fadeRightVariant} className="flex-1 text-gray-700">
             <h3 className="text-2xl font-bold mb-4">Our Story</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum autem
@@ -31,18 +41,18 @@ function About() {
               itaque totam tempora, facere cumque omnis excepturi? Ratione
               asperiores eaque dignissimos ea?
             </p>
-          </div>
-          <div className="flex-1">
+          </motion.div>
+          <motion.div variants={fadeLeftVariant} className="flex-1">
             <img
               src="https://images.unsplash.com/photo-1622675205169-901710ac8643?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Library"
               className="rounded-xl shadow-lg"
             />
-          </div>
-        </section>
+          </motion.div>
+        </motion.section>
         {/* membri del team */}
         <section className="text-center">
-          <h3 className="text-2xl font-bold mb-8">Team</h3>
+          <motion.h3 variants={fadeVariant} className="text-2xl font-bold mb-8">Team</motion.h3>
           <div className="grid grid-cols-1 gap-4">
             {/* poi prenderemo questi dati dal db, forse */}
             {[
@@ -87,7 +97,8 @@ function About() {
                 github: "https://github.com/AndreaBoato",
               },
             ].map((member, index) => (
-              <div
+              <motion.div
+                variants={fadeLeftVariant}
                 key={index}
                 className="flex items-center gap-4 bg-white p-4 rounded-lg shadow-md"
               >
@@ -107,7 +118,7 @@ function About() {
                     Contattami
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>
@@ -115,7 +126,10 @@ function About() {
         <section>
           {selectedMember && (
             <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
-              <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+              <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1  }}
+              className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
                 <h2 className="font-semibold text-lg mb-4 text-center text-sky-500">
                   {selectedMember.name}
                 </h2>
@@ -139,11 +153,11 @@ function About() {
                 >
                   Chiudi
                 </button>
-              </div>
+              </motion.div>
             </div>
           )}
         </section>
-      </main>
+      </motion.main>
     </div>
   );
 }

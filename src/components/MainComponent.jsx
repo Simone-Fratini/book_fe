@@ -2,32 +2,9 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Card from "./Card";
 import axios from "axios";
+import { fadeDownVariant, animationContainer } from "../animations/animationUtils";
 
 export default function MainComponent() {
-
-  //animation variants
-  const titleVariantContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.5,
-        delay: 0.2,
-      },
-    },
-  };
-
-  const titleVariant = {
-    hidden: { opacity: 0, y: -40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.75,
-        ease: "easeOut",
-      },
-    },
-  };
 
   const [books, setBooks] = useState([]);
 
@@ -46,11 +23,11 @@ export default function MainComponent() {
 
   return (
     <div className="mx-16 my-4">
-      <motion.div initial="hidden" animate="visible"  variants={titleVariantContainer} className="text-center pb-10">
-        <motion.h1 variants={titleVariant} className="text-5xl font-bold tracking-wide text-blue-600">
+      <motion.div initial="hidden" animate="visible"  variants={animationContainer} className="text-center pb-10">
+        <motion.h1 variants={fadeDownVariant} className="text-5xl font-bold tracking-wide text-blue-600">
           Bool Books
         </motion.h1>
-        <motion.h2 variants={titleVariant} className="py-2 text-3xl italic font-semibold">
+        <motion.h2 variants={fadeDownVariant} className="py-2 text-3xl italic font-semibold">
           The nerdest book community
         </motion.h2>
       </motion.div>
@@ -63,7 +40,7 @@ export default function MainComponent() {
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 duration: 0.5,
-                delay: index * 0.2,
+                delay: index * 0.4,
                 ease: "easeOut"
               }}
             >
