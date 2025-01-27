@@ -30,33 +30,33 @@ function Bookdetail() {
         <>
             {book && (
                 <>
-                    <section className="flex flex-wrap gap-6 mx-8 md:mx-16 mt-8 pb-4 border-b border-b-slate-400">
-                        <div className=" md:w-[200px]">
-                            <img
-                                src={`${apiImageUrl}/${book?.image}`}
-                                alt={book.title}
-                            />
-                        </div>
-                        <div>
-                            <h1 className="text-4xl font-black">
-                                {book.title}
-                            </h1>
-                            <h2 className="mt-1 mb-3 text-2xl font-semibold text-gray-600">
-                                by <em>{book.author}</em>
-                            </h2>
-                            <p className="text-lg my-2">{book.abstract}</p>
-                        </div>
-                    </section>
-                    <ReviewsSection book={book}/>
-                    
+                    <InfoSection book={book} />
+                    <ReviewsSection book={book} />
+                    <FormSection />
                 </>
             )}
         </>
     );
 }
 
+function InfoSection({ book }) {
+    return (
+        <section className="flex flex-wrap gap-6 mx-8 md:mx-16 mt-8 pb-4 border-b border-b-slate-400">
+            <div className=" md:w-[200px]">
+                <img src={`${apiImageUrl}/${book?.image}`} alt={book.title} />
+            </div>
+            <div>
+                <h1 className="text-4xl font-black">{book.title}</h1>
+                <h2 className="mt-1 mb-3 text-2xl font-semibold text-gray-600">
+                    by <em>{book.author}</em>
+                </h2>
+                <p className="text-lg my-2">{book.abstract}</p>
+            </div>
+        </section>
+    );
+}
 
-function ReviewsSection({book}){
+function ReviewsSection({ book }) {
     return (
         <section className="mx-8 md:mx-16 my-8">
             <h2 className="text-xl font-bold">Our community reviews</h2>
@@ -77,6 +77,61 @@ function ReviewsSection({book}){
                     </div>
                 ))}
             </div>
+        </section>
+    );
+}
+
+function FormSection() {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
+    return (
+        <section className="my-8 md:mx-16">
+            <form
+                onSubmit={handleSubmit}
+                className="rounded-md pb-2 border border-stone-400 flex flex-col gap-3 [&>*]:px-3
+                        "
+            >
+                <h2 className="py-3 border-b border-b-stone-400   bg-slate-200 font-semibold text-xl">
+                    Add your review
+                </h2>
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="name">Name</label>
+                    <input
+                        className="p-2 rounded-md border border-stone-400"
+                        type="text"
+                        name="name"
+                        id="name"
+                        required
+                    />
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="review">Review</label>
+                    <textarea
+                        className="p-2 rounded-md border border-stone-400"
+                        name="review"
+                        id="review"
+                        required
+                    ></textarea>
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="vote">Vote</label>
+                    <input
+                        className="p-2 rounded-md border border-stone-400"
+                        type="number"
+                        name="vote"
+                        id="vote"
+                        min={0}
+                        required
+                    />
+                </div>
+                <button
+                    type="submit"
+                    className="bg-blue mr-2 rounded-md py-2 px-5 bg-blue-700 text-white self-end scale-90 hover:scale-100"
+                >
+                    Send
+                </button>
+            </form>
         </section>
     );
 }
