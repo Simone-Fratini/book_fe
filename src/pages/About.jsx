@@ -53,27 +53,38 @@ function About() {
                 email: "SimoneFratini@gmail.com",
                 phone: "333 333 3333",
                 github: "https://github.com/Simone-Fratini",
-                linkedin: "SimoneFratini",
               },
               {
                 name: "Ajhay Herrera",
-                role: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                role: "Web Developer",
                 img: "https://plus.unsplash.com/premium_photo-1672239496290-5061cfee7ebb?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                email: "AJ@gmail.com",
+                phone: "343 345 3343",
+                github: "https://github.com/Aj-Herrera-99",
               },
               {
                 name: "Andy Simota",
-                role: "ccccccccccccccccccccccccccccccccccc",
+                role: "Web Developer",
                 img: "https://images.unsplash.com/photo-1503001358144-8d7f2c1db9f5?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                email: "Andy@gmail.com",
+                phone: "145 345 1343",
+                github: "https://github.com/AndySMT",
               },
               {
                 name: "Arber Beshaj",
-                role: "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+                role: "Web Developer",
                 img: "https://images.unsplash.com/photo-1503443207922-dff7d543fd0e?q=80&w=1854&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                email: "ArberBeshaj@gmail.com",
+                phone: "945 945 3443",
+                github: "https://github.com/Abraxas-7",
               },
               {
                 name: "Andrea Boato",
-                role: "arrivato qui ho capito che sto sbagliando qualcosa..... mannaiaaaaaaaa che palle, mo come risolvo ? ",
+                role: "Web Developer",
                 img: "https://images.unsplash.com/photo-1495638488670-437e54b3bab4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                email: "Andrea@gmail.com",
+                phone: "344 345 1543",
+                github: "https://github.com/AndreaBoato",
               },
             ].map((member, index) => (
               <div
@@ -113,16 +124,15 @@ function About() {
                   alt={selectedMember.name}
                   className="mb-4 w-full h-44 object-cover"
                 />
+                <p>Role: {selectedMember.role}</p>
                 <p>Email: {selectedMember.email}</p>
                 <p>Phone: {selectedMember.phone}</p>
-                <a href="https://github.com/Simone-Fratin" target="_blank"></a>
                 <p>
                   Github:{" "}
-                  <a href="https://github.com/Simone-Fratini" target="_blank">
+                  <a href={selectedMember.github} target="_blank">
                     Visita il profilo
                   </a>
                 </p>
-                <p>Linkedin: {selectedMember.linkedin}</p>
                 <button
                   onClick={handlePopup}
                   className="mt-4 bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded "
