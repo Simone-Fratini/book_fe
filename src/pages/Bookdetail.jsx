@@ -41,7 +41,7 @@ function Bookdetail() {
 
 function InfoSection({ book }) {
     return (
-        <section className="flex flex-wrap gap-6 mx-8 md:mx-16 mt-8 pb-4 border-b border-b-slate-400">
+        <section className="flex flex-col md:flex-row gap-6 mx-8 md:mx-16 mt-8 pb-4 border-b border-b-slate-400">
             <div className=" md:w-[200px]">
                 <img src={`${apiImageUrl}/${book?.image}`} alt={book.title} />
             </div>
@@ -86,7 +86,7 @@ function FormSection() {
         e.preventDefault();
     };
     return (
-        <section className="my-8 md:mx-16">
+        <section className="my-8 md:mx-16 mx-8">
             <form
                 onSubmit={handleSubmit}
                 className="rounded-md pb-2 border border-stone-400 flex flex-col gap-3 [&>*]:px-3
