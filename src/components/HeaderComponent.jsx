@@ -21,7 +21,7 @@ function HeaderComponent() {
     <header className="bg-gradient-to-r dark:from-gray-800 dark:to-gray-600 from-blue-800 to-blue-600 text-white p-6 shadow-lg rounded-b-2xl">
         <div className="container mx-auto flex items-center justify-between">
             {/* Logo */}
-            <div className="font-extrabold text-xl sm:text-xl md:text-2xl lg:text-3xl">Boolean Book-Shop</div>
+            <Link to={"/"} className="font-extrabold text-xl sm:text-xl md:text-2xl lg:text-3xl">Book-Shop</Link>
 
             {/* Nav */}
             <nav className="flex space-x-6 text-lg">
