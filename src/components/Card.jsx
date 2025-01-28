@@ -12,7 +12,7 @@ export default function Card({ book }) {
                     alt={book.title}
                 />
             </div>
-            <div className="p-3 grow flex flex-col gap-3">
+            <div className="p-3 grow flex flex-col gap-2">
                 <div className="h-2/3">
                     <h3 title={book.title} className="text-2xl font-semibold text-gray-800 break-all line-clamp-1">
                         {book.title}

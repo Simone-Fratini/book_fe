@@ -14,12 +14,12 @@
 }
 
 body {
-    @apply dark:bg-slate-800;
+    @apply dark:bg-slate-800 transition-all;
 }
 
 header,
 footer {
-    @apply dark:from-gray-950 dark:to-gray-900;
+    @apply dark:from-gray-950 dark:to-gray-900 transition-all;
 }
 
 .hamburger-menu {
