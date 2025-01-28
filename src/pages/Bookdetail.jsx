@@ -84,6 +84,7 @@ function ReviewsSection({ book }) {
 function FormSection() {
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log("submit-btn clicked")
     };
     return (
         <section className="my-8 md:mx-16 mx-8">
@@ -122,6 +123,7 @@ function FormSection() {
                         name="vote"
                         id="vote"
                         min={0}
+                        max={5}
                         required
                     />
                 </div>
