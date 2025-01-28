@@ -31,7 +31,7 @@ export default function MainComponent() {
           The nerdest book community
         </motion.h2>
       </motion.div>
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 lg:mx-24">
+      <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:mx-24 auto-rows-fr">
   
           {books.map((book, index) => (
             <motion.div
