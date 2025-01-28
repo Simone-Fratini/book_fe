@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
 import { FaMoon } from "react-icons/fa6";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { FaBars } from "react-icons/fa";
 
-function HeaderComponent() {
+function Navbar() {
   const [darkMode, setDarkMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -68,7 +68,7 @@ function HeaderComponent() {
 
       {/* Mobile Menu (shows when isMenuOpen is true) */}
       {isMenuOpen && (
-        <div className="absolute top-16 right-6 bg-blue-600 text-white rounded-lg shadow-lg py-4 px-6 md:hidden">
+        <div className="absolute top-16 right-6 hamburger-menu bg-blue-600 text-white rounded-lg shadow-lg py-4 px-6 md:hidden">
           <ul className="flex flex-col space-y-4">
             <li>
               <NavLink
@@ -114,4 +114,4 @@ function HeaderComponent() {
   );
 }
 
-export default HeaderComponent;
+export default Navbar;

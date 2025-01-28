@@ -4,8 +4,8 @@ const apiImageUrl = import.meta.env.VITE_BOOK_IMG_URL;
 
 export default function Card({ book }) {
     return (
-        <div className="flex flex-col bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl scale-[.99] hover:scale-100 hover:z-10 transition-all duration-300 [aspect-ratio:9/16] md:[aspect-ratio:3/4] lg:[aspect-ratio:1/2] xl:[aspect-ratio:3/4]">
-            <div className="h-1/2 lg:h-2/5 xl:h-1/2 bg-blue-50">
+        <div className="card flex flex-col bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl scale-[.99] hover:scale-100 hover:z-10 transition-all duration-300 [aspect-ratio:9/16] md:[aspect-ratio:3/4] lg:[aspect-ratio:1/2] xl:[aspect-ratio:3/4]">
+            <div className="h-1/2 lg:h-2/5 xl:h-1/2 bg-blue-50 card-img-container">
                 <img
                     src={`${apiImageUrl}/${book.image}`}
                     className="w-full h-full object-contain"
