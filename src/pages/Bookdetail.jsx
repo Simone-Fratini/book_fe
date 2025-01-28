@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Rating from "../components/Rating";
 import { motion } from "framer-motion";
 import {animationContainer, fadeLeftVariant, fadeRightVariant} from "../animations/animationUtils";
+import Loader from "../components/Loader";
 const apiUrl = import.meta.env.VITE_BOOKS_URL;
 const apiImageUrl = import.meta.env.VITE_BOOK_IMG_URL;
 
@@ -13,7 +14,6 @@ function Bookdetail() {
     const [book, setBook] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
-    // todo: loading
     useEffect(() => {
         setIsLoading(true);
         axios
@@ -26,7 +26,7 @@ function Bookdetail() {
             .finally(() => setIsLoading(false));
     }, []);
 
-    if (isLoading) return <div>Loading . . .</div>;
+    if (isLoading) return <Loader />;
     return (
         <>
             {book && (
@@ -91,7 +91,7 @@ function ReviewsSection({ book }) {
 function FormSection() {
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("submit-btn clicked")
+        console.log("submit-btn clicked");
     };
     return (
         <motion.section initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{duration: 0.5, delay: 1.5}} className="my-8 md:mx-16 mx-8">
