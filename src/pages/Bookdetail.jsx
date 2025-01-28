@@ -10,20 +10,20 @@ const apiImageUrl = import.meta.env.VITE_BOOK_IMG_URL;
 
 function Bookdetail() {
     const { id } = useParams();
-
     const [book, setBook] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
+    const fetchBook = () => {
         setIsLoading(true);
         axios
             .get(`${apiUrl}/${id}`)
-            .then((res) => {
-                console.log(res.data);
-                setBook(res.data);
-            })
+            .then((res) => setBook(res.data))
             .catch((err) => console.error(err))
             .finally(() => setIsLoading(false));
+    };
+
+    useEffect(() => {
+        fetchBook();
     }, []);
 
     if (isLoading) return <Loader />;
@@ -33,7 +33,7 @@ function Bookdetail() {
                 <>
                     <InfoSection book={book} />
                     <ReviewsSection book={book} />
-                    <FormSection />
+                    <FormSection bookId={id} fetchBook={fetchBook} />
                 </>
             )}
         </>
@@ -88,56 +88,102 @@ function ReviewsSection({ book }) {
     );
 }
 
-function FormSection() {
+function FormSection({ bookId, fetchBook }) {
+    const [name, setName] = useState('');
+    const [text, setText] = useState('');
+    const [vote, setVote] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState('');
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("submit-btn clicked");
+        setIsSubmitting(true);
+        setError('');
+
+        const voteValue = parseInt(vote, 10);
+        if (isNaN(voteValue) || voteValue < 0 || voteValue > 5) {
+            setError('Il voto deve essere tra 0 e 5');
+            setIsSubmitting(false);
+            return;
+        }
+
+        axios.post(`${apiUrl}/${bookId}`, { text, name, vote: voteValue })
+            .then(() => {
+                setName('');
+                setText('');
+                setVote('');
+                fetchBook();
+            })
+            .catch((err) => {
+                console.error('Errore:', err);
+                setError('Errore durante l\'invio. Riprova.');
+            })
+            .finally(() => setIsSubmitting(false));
     };
+
     return (
-        <motion.section initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{duration: 0.5, delay: 1.5}} className="my-8 md:mx-16 mx-8">
+        <motion.section 
+            initial={{ opacity: 0, y: 50 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.5, delay: 1.5 }} 
+            className="my-8 md:mx-16 mx-8"
+        >
             <form
                 onSubmit={handleSubmit}
                 className="rounded-md pb-2 border border-stone-400 flex flex-col gap-3 [&>*]:px-3"
             >
-                <h2 className="py-3 border-b border-b-stone-400   bg-slate-200 font-semibold text-xl">
-                    Add your review
+                <h2 className="py-3 border-b border-b-stone-400 bg-slate-200 font-semibold text-xl">
+                    Aggiungi la tua recensione
                 </h2>
+                
+                {error && <div className="text-red-500 px-3">{error}</div>}
+
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="name">Nome</label>
                     <input
                         className="p-2 rounded-md border border-stone-400"
                         type="text"
                         name="name"
                         id="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         required
                     />
                 </div>
+
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="review">Review</label>
+                    <label htmlFor="review">Recensione</label>
                     <textarea
                         className="p-2 rounded-md border border-stone-400"
                         name="review"
                         id="review"
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
                         required
                     ></textarea>
                 </div>
+
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="vote">Vote</label>
+                    <label htmlFor="vote">Voto (0-5)</label>
                     <input
                         className="p-2 rounded-md border border-stone-400"
                         type="number"
                         name="vote"
                         id="vote"
-                        min={0}
-                        max={5}
+                        value={vote}
+                        onChange={(e) => setVote(e.target.value)}
+                        min="0"
+                        max="5"
                         required
                     />
                 </div>
+
                 <button
                     type="submit"
-                    className="bg-blue mr-2 rounded-md py-2 px-5 bg-blue-700 text-white self-end scale-90 hover:scale-100"
+                    disabled={isSubmitting}
+                    className="mr-2 rounded-md py-2 px-5 bg-blue-700 text-white self-end scale-90 hover:scale-100 disabled:opacity-50 disabled:hover:scale-90"
                 >
-                    Send
+                    {isSubmitting ? 'Invio in corso...' : 'Invia'}
                 </button>
             </form>
         </motion.section>
