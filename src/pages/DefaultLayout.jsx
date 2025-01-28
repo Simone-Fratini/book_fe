@@ -7,7 +7,7 @@ function DefaultLayout() {
     return (
         <>
             <HeaderComponent />
-            <main>
+            <main className="min-h-[90vh]">
                 <Outlet />
             </main>
             <FooterComponent />

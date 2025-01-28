@@ -136,13 +136,4 @@ function FormSection() {
     );
 }
 
-//   "id": 13,
-//   "book_id": 5,
-//   "name": "Mia",
-//   "vote": 5,
-//   "text": "A gripping and complex tale.",
-//   "created_at": "2024-11-26T09:58:09.000Z",
-//   "updated_at": "2024-11-26T09:58:09.000Z"
-// },
-
 export default Bookdetail;
