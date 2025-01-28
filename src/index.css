@@ -12,3 +12,45 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+body {
+    @apply dark:bg-slate-800 transition-all;
+}
+
+header,
+footer {
+    @apply dark:from-gray-950 dark:to-gray-900 transition-all;
+}
+
+.hamburger-menu {
+    @apply dark:bg-gray-800
+}
+
+h1,
+h3,
+p,
+span,
+label {
+    @apply dark:text-white;
+}
+
+form {
+    @apply dark:bg-slate-900/50;
+}
+
+form h2 {
+    @apply dark:text-slate-900;
+}
+
+h2,
+h4 {
+    @apply dark:text-gray-400;
+}
+
+.card {
+    @apply dark:bg-slate-950;
+}
+
+.card-img-container {
+    @apply dark:bg-slate-900;
+}

@@ -126,7 +126,7 @@ function FormSection({ bookId, fetchBook }) {
             initial={{ opacity: 0, y: 50 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.5, delay: 1.5 }} 
-            className="my-8 md:mx-16 mx-8"
+            className="my-8 md:mx-16 mx-8 overflow-hidden"
         >
             <form
                 onSubmit={handleSubmit}

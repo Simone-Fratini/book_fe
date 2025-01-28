@@ -9,17 +9,17 @@ function About() {
   };
 
   return (
-    <section className="bg-blue-50 min-h-screen">
+    <section className="min-h-screen">
       <motion.main 
       initial="hidden"
       animate="visible"
       variants={animationContainer}
-      className="max-w-6xl mx-auto px-4 py-8">
+      className="max-w-6xl mx-auto px-4 py-8 break-all">
         <motion.section
         variants={fadeDownVariant}
-        className="text-center mb-12">
+        className="sm:text-center text-start mb-12">
           {/* Chi siamo */}
-          <h2 className="text-3xl font-bold mb-4">About the Team</h2>
+          <h3 className="text-3xl font-bold mb-4">About the Team</h3>
           <p className="text-gray-700 mb-6">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita
             aliquam dolorum ipsum esse voluptatibus dolorem iusto similique
@@ -34,7 +34,7 @@ function About() {
         {/* la nostra storia */}
         <motion.section variants={animationContainerStory} className="flex flex-col md:flex-row items-center gap-8 mb-16">
           <motion.div variants={fadeRightVariant} className="flex-1 text-gray-700">
-            <h3 className="text-2xl font-bold mb-4">Our Story</h3>
+            <h3 className="text-3xl font-bold mb-4">Our Story</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum autem
               earum harum rem necessitatibus asperiores debitis soluta neque,
