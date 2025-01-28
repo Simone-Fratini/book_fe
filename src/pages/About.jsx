@@ -9,7 +9,7 @@ function About() {
   };
 
   return (
-    <div className="bg-blue-50 min-h-screen">
+    <section className="bg-blue-50 min-h-screen">
       <motion.main 
       initial="hidden"
       animate="visible"
@@ -158,7 +158,7 @@ function About() {
           )}
         </section>
       </motion.main>
-    </div>
+    </section>
   );
 }
 

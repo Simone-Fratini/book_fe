@@ -22,7 +22,7 @@ export default function MainComponent() {
   }, []);
 
   return (
-    <div className="mx-16 my-4">
+    <section className="mx-16 my-4">
       <motion.div initial="hidden" animate="visible"  variants={animationContainer} className="text-center pb-10">
         <motion.h1 variants={fadeDownVariant} className="text-5xl font-bold tracking-wide text-blue-600">
           Bool Books
@@ -49,6 +49,6 @@ export default function MainComponent() {
           ))}
 
       </div>
-    </div>
+    </section>
   );
 }
