@@ -69,7 +69,6 @@ function ReviewsSection({ book }) {
                         transition={{
                             duration: 0.5,
                             delay: index * 0.4,
-                            ease: "easeOut"
                         }}
                         key={rev.id}
                         className="p-4 rounded-md border border-slate-400 flex flex-col gap-2 relative"
