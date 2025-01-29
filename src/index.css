@@ -55,3 +55,9 @@ h4 {
 .card-img-container {
     @apply dark:bg-slate-900;
 }
+
+.MuiPagination-root {
+  button {
+    @apply text-slate-900 border-slate-500 dark:text-slate-200
+ }
+}
