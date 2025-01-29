@@ -125,7 +125,6 @@ function ReviewsSection({ book }) {
                     >
                         <p>{rev.text}</p>
                         <span>
-                            <strong>Vote</strong>
                             <Rating stars={rev.vote} />
                         </span>
                         <span className="italic absolute bottom-1 right-5">
@@ -226,6 +225,7 @@ function FormSection({ bookId, fetchBook }) {
         </div>
 
         <div className="flex flex-col gap-2">
+            <div className="text-white">Rating</div>
           <Rating stars={vote} onRate={setVote} />
         </div>
 
