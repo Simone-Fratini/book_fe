@@ -7,23 +7,25 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 import { FaBars } from "react-icons/fa";
 import { useAuthContext } from "../contexts/AuthContext";
 import axios from "axios";
+import UserDropdown from "./UserDropdown";
 const apiLogoutUrl = import.meta.env.VITE_LOGOUT_URL;
 
 function Navbar() {
-    const { user, isLogged, setIsLogged } = useAuthContext();
+    const { user, setUser } = useAuthContext();
 
     const navigate = useNavigate();
     const location = useLocation();
 
     const [darkMode, setDarkMode] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isUserOpen, setIsUserOpen] = useState(false);
 
     const navLinkClasses =
-        "flex items-center space-x-1 hover:text-blue-300 transition-colors duration-300 pb-1 px-2";
+        "flex items-center gap-4 capitalize py-1 px-4 border-b rounded-b-lg border-b-slate-400 hover:pb-3 hover:text-white/70 transition-all";
 
     // actions
     const logout = () => {
-        if (isLogged) {
+        if (user) {
             axios({
                 method: "post",
                 url: apiLogoutUrl,
@@ -35,7 +37,7 @@ function Navbar() {
             })
                 .then((res) => {
                     console.log(res.data);
-                    setIsLogged(false);
+                    setUser(null);
                 })
                 .catch((err) => {
                     console.error(err.response.data);
@@ -44,6 +46,12 @@ function Navbar() {
                     navigate(location.pathname);
                     window.sessionStorage.removeItem("user");
                 });
+        }
+    };
+
+    const handleUserClick = () => {
+        if (user) {
+            setIsUserOpen((curr) => !curr);
         }
     };
 
@@ -59,18 +67,22 @@ function Navbar() {
         <>
             {/* Hamburger Menu Button only visible on small screens */}
             <div className="flex items-baseline gap-3 md:hidden">
-                <NavLink
-                    onClick={logout}
-                    end
-                    to={!isLogged ? "/home/auth" : ""}
-                    className={({ isActive }) =>
-                        navLinkClasses +
-                        (isActive && !isLogged ? " border-b border-white" : "")
-                    }
-                >
-                    <FaRegUserCircle />
-                    <span>{isLogged ? user.username : "Login"}</span>
-                </NavLink>
+                <div className="relative">
+                    <NavLink
+                        onClick={handleUserClick}
+                        end
+                        to={!user ? "/home/auth" : location.pathname}
+                        className={({ isActive }) =>
+                            navLinkClasses +
+                            (isActive && !user ? " border-b border-white" : "")
+                        }
+                    >
+                        <FaRegUserCircle />
+                        <span>{user ? user?.username : "Login"}</span>
+                    </NavLink>
+                    {/* dropdown */}
+                    {user && isUserOpen && <UserDropdown onClick={logout} />}
+                </div>
                 <button
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                     className="text-white"
@@ -114,23 +126,27 @@ function Navbar() {
                     <IoInformationCircleOutline className="text-xl" />
                     <span>About</span>
                 </NavLink>
-                <NavLink
-                    onClick={logout}
-                    end
-                    to={!isLogged ? "/home/auth" : ""}
-                    className={({ isActive }) =>
-                        navLinkClasses +
-                        (isActive && !isLogged ? " border-b border-white" : "")
-                    }
-                >
-                    <FaRegUserCircle />
-                    <span>{isLogged ? user.username : "Login"}</span>
-                </NavLink>
+                <div className="relative">
+                    <NavLink
+                        onClick={handleUserClick}
+                        end
+                        to={!user ? "/home/auth" : location.pathname}
+                        className={({ isActive }) =>
+                            navLinkClasses +
+                            (isActive && !user ? " border-b border-white" : "")
+                        }
+                    >
+                        <FaRegUserCircle />
+                        <span>{user ? user?.username : "Login"}</span>
+                    </NavLink>
+                    {/* dropdown */}
+                    {user && isUserOpen && <UserDropdown onClick={logout} />}
+                </div>
             </nav>
 
             {/* Mobile Menu (shows when isMenuOpen is true) */}
             {isMenuOpen && (
-                <div className="absolute top-16 right-6 hamburger-menu bg-blue-600 text-white rounded-lg shadow-lg py-4 px-6 md:hidden">
+                <div className="absolute top-16 right-6 hamburger-menu border bg-blue-950/70 text-white rounded-lg shadow-lg py-4 px-6 md:hidden">
                     <ul className="flex flex-col space-y-4">
                         <li>
                             <NavLink
@@ -163,12 +179,15 @@ function Navbar() {
                         {/* Dark Mode Button for Mobile */}
                         <button
                             onClick={() => setDarkMode(!darkMode)}
-                            className="p-2 border rounded-full hover:bg-gray-200 hover:text-gray-500 transition duration-300"
+                            className="p-2 w-1/2 self-start border rounded-full hover:bg-gray-200 hover:text-gray-500 flex justify-between transition duration-300"
                         >
                             {darkMode ? (
                                 <FiSun className="text-md" />
                             ) : (
-                                <FaMoon className="text-md" />
+                                <>
+                                    <span></span>
+                                    <FaMoon className="text-md block self-end" />
+                                </>
                             )}
                         </button>
                     </ul>
