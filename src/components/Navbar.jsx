@@ -41,8 +41,8 @@ function Navbar() {
                     console.error(err.response.data);
                 })
                 .finally(() => {
-                    window.history.replaceState({}, "");
                     navigate(location.pathname);
+                    window.sessionStorage.removeItem("user");
                 });
         }
     };

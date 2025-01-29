@@ -7,13 +7,9 @@ import {
     animationContainer,
 } from "../animations/animationUtils";
 import Loader from "./Loader";
-import { useLocation } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 
 export default function MainComponent() {
-    const { setUser } = useAuthContext();
-    const location = useLocation();
-
     const [books, setBooks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -30,9 +26,6 @@ export default function MainComponent() {
 
     useEffect(() => {
         fetchBooks();
-        if (location.state) {
-            setUser(location.state);
-        }
     }, []);
 
     if (isLoading) return <Loader />;
