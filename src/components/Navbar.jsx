@@ -21,6 +21,9 @@ function Navbar() {
     const [isUserOpen, setIsUserOpen] = useState(false);
 
     const navLinkClasses =
+        "flex items-center space-x-1 hover:text-blue-300 transition-colors duration-300 pb-1 px-2";
+
+    const navLinkMobileClasses =
         "flex items-center gap-4 capitalize py-1 px-4 border-b rounded-b-lg border-b-slate-400 hover:pb-3 hover:text-white/70 transition-all";
 
     // actions
@@ -96,12 +99,15 @@ function Navbar() {
                 {/* daromode for desktop */}
                 <button
                     onClick={() => setDarkMode(!darkMode)}
-                    className="flex items-center p-2 border mr-2 rounded-full hover:bg-gray-200 hover:text-gray-500 transition duration-300"
+                    className="p-2 w-[50px] mr-2 self-start border rounded-full hover:bg-gray-200 hover:text-gray-500 flex justify-between transition duration-300"
                 >
                     {darkMode ? (
-                        <FiSun className="text-lg" />
+                        <>
+                            <span></span>
+                            <FiSun className="text-md block self-end" />
+                        </>
                     ) : (
-                        <FaMoon className="text-lg" />
+                        <FaMoon className="text-md" />
                     )}
                 </button>
                 <NavLink
@@ -146,14 +152,14 @@ function Navbar() {
 
             {/* Mobile Menu (shows when isMenuOpen is true) */}
             {isMenuOpen && (
-                <div className="absolute top-16 right-6 hamburger-menu border bg-blue-950/70 text-white rounded-lg shadow-lg py-4 px-6 md:hidden">
+                <div className="absolute top-16 right-6 hamburger-menu border bg-blue-950/70 text-white rounded-lg shadow-lg py-4 px-2 md:hidden">
                     <ul className="flex flex-col space-y-4">
                         <li>
                             <NavLink
                                 end
                                 to="/home"
                                 className={({ isActive }) =>
-                                    navLinkClasses +
+                                    navLinkMobileClasses +
                                     (isActive ? " border-b border-white" : "")
                                 }
                                 onClick={() => setIsMenuOpen(false)}
@@ -167,7 +173,7 @@ function Navbar() {
                                 end
                                 to="/home/about"
                                 className={({ isActive }) =>
-                                    navLinkClasses +
+                                    navLinkMobileClasses +
                                     (isActive ? " border-b border-white" : "")
                                 }
                                 onClick={() => setIsMenuOpen(false)}
@@ -179,15 +185,15 @@ function Navbar() {
                         {/* Dark Mode Button for Mobile */}
                         <button
                             onClick={() => setDarkMode(!darkMode)}
-                            className="p-2 w-1/2 self-start border rounded-full hover:bg-gray-200 hover:text-gray-500 flex justify-between transition duration-300"
+                            className="p-2 w-[50px] mr-2 self-start border rounded-full hover:bg-gray-200 hover:text-gray-500 flex justify-between transition duration-300"
                         >
                             {darkMode ? (
-                                <FiSun className="text-md" />
-                            ) : (
                                 <>
                                     <span></span>
-                                    <FaMoon className="text-md block self-end" />
+                                    <FiSun className="text-md block self-end" />
                                 </>
+                            ) : (
+                                <FaMoon className="text-md" />
                             )}
                         </button>
                     </ul>
