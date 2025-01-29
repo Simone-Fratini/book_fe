@@ -100,7 +100,7 @@ function About() {
               <motion.div
                 variants={fadeLeftVariant}
                 key={index}
-                className="flex items-center gap-4 bg-white p-4 rounded-lg shadow-md"
+                className="flex items-center gap-4 bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md"
               >
                 <img
                   src={member.img}
@@ -129,8 +129,8 @@ function About() {
               <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1  }}
-              className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
-                <h2 className="font-semibold text-lg mb-4 text-center text-sky-500">
+              className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg max-w-sm w-full">
+                <h2 className="font-semibold text-lg mb-4 text-center dark:text-gray-50 text-sky-500">
                   {selectedMember.name}
                 </h2>
                 <img
