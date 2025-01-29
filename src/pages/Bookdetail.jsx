@@ -120,9 +120,21 @@ function FormSection({ bookId, fetchBook }) {
     setIsSubmitting(true);
     setError("");
 
+    if (name.trim().length < 3) {
+      setError("Il nome deve avere almeno 3 caratteri.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (text.trim().length < 10) {
+      setError("La recensione deve contenere almeno 10 caratteri.");
+      setIsSubmitting(false);
+      return;
+    }
+
     const voteValue = parseInt(vote, 10);
     if (isNaN(voteValue) || voteValue < 0 || voteValue > 5) {
-      setError("Il voto deve essere tra 0 e 5");
+      setError("Il voto è obbligatorio");
       setIsSubmitting(false);
       return;
     }
@@ -168,7 +180,6 @@ function FormSection({ bookId, fetchBook }) {
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            required
           />
         </div>
 
@@ -180,7 +191,6 @@ function FormSection({ bookId, fetchBook }) {
             id="review"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            required
           ></textarea>
         </div>
 
