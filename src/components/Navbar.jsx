@@ -10,7 +10,7 @@ import axios from "axios";
 const apiLogoutUrl = import.meta.env.VITE_LOGOUT_URL;
 
 function Navbar() {
-    const { user, setUser } = useAuthContext();
+    const { user, isLogged, setIsLogged } = useAuthContext();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -23,7 +23,7 @@ function Navbar() {
 
     // actions
     const logout = () => {
-        if (user) {
+        if (isLogged) {
             axios({
                 method: "post",
                 url: apiLogoutUrl,
@@ -35,7 +35,7 @@ function Navbar() {
             })
                 .then((res) => {
                     console.log(res.data);
-                    setUser(null);
+                    setIsLogged(false);
                 })
                 .catch((err) => {
                     console.error(err.response.data);
@@ -62,14 +62,14 @@ function Navbar() {
                 <NavLink
                     onClick={logout}
                     end
-                    to={!user ? "/home/auth" : ""}
+                    to={!isLogged ? "/home/auth" : ""}
                     className={({ isActive }) =>
                         navLinkClasses +
-                        (isActive && !user ? " border-b border-white" : "")
+                        (isActive && !isLogged ? " border-b border-white" : "")
                     }
                 >
                     <FaRegUserCircle />
-                    <span>{user ? user.username : "Login"}</span>
+                    <span>{isLogged ? user.username : "Login"}</span>
                 </NavLink>
                 <button
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -117,14 +117,14 @@ function Navbar() {
                 <NavLink
                     onClick={logout}
                     end
-                    to={!user ? "/home/auth" : ""}
+                    to={!isLogged ? "/home/auth" : ""}
                     className={({ isActive }) =>
                         navLinkClasses +
-                        (isActive && !user ? " border-b border-white" : "")
+                        (isActive && !isLogged ? " border-b border-white" : "")
                     }
                 >
                     <FaRegUserCircle />
-                    <span>{user ? user.username : "Login"}</span>
+                    <span>{isLogged ? user.username : "Login"}</span>
                 </NavLink>
             </nav>
 

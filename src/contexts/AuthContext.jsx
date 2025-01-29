@@ -4,6 +4,7 @@ const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState();
+    const [isLogged, setIsLogged] = useState(false);
 
     // console.log(user);
     // console.log(window.sessionStorage.getItem("user"));
@@ -13,7 +14,7 @@ const AuthContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, setUser }}>
+        <AuthContext.Provider value={{ user, setUser, isLogged, setIsLogged }}>
             {children}
         </AuthContext.Provider>
     );
