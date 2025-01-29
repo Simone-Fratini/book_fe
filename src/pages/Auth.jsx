@@ -30,7 +30,11 @@ function Auth() {
                 .then((res) => {
                     console.log("login succeded");
                     setUser(res.data);
-                    navigate(-1, { state: res.data });
+                    navigate(-1);
+                    window.sessionStorage.setItem(
+                        "user",
+                        JSON.stringify(res.data)
+                    );
                 })
                 .catch((err) => console.error(err.response.data));
         } else {
