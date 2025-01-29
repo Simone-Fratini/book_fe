@@ -28,9 +28,9 @@ function Auth() {
                 },
             })
                 .then((res) => {
-                    console.log("login succeded")
+                    console.log("login succeded");
                     setUser(res.data);
-                    navigate("/home");
+                    navigate("/home", { state: res.data });
                 })
                 .catch((err) => console.error(err.response.data));
         } else {
