@@ -23,6 +23,7 @@ export default function MainComponent() {
             .then((res) => {
                 setBooks(res.data.books);
                 setTotalBooks(res.data.total_books);
+                setPage(page)
             })
             .catch((err) => console.error("Errore nel fetch dei libri:", err))
             .finally(() => setIsLoading(false));
@@ -30,6 +31,7 @@ export default function MainComponent() {
 
     useEffect(() => {
         const currPage = window.sessionStorage.getItem("page");
+        console.log(currPage)
         if (currPage) {
             fetchBooks(parseInt(currPage));
         } else {

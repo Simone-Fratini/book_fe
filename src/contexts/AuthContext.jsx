@@ -6,10 +6,8 @@ const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState();
     const [isLogged, setIsLogged] = useState(false);
 
-    // console.log(window.sessionStorage.getItem("user"));
     useEffect(() => {
         const currUser = JSON.parse(window.sessionStorage.getItem("user"));
-        console.log(currUser)
         setUser(currUser);
     }, []);
 
