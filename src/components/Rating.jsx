@@ -1,20 +1,17 @@
-function Rating({ stars }) {
-    const rating = [];
-    for (let i = 1; i <= 5; i++) {
-        const star =
-            stars >= i ? (
-                <i key={i} className="text-yellow-500 fa-solid fa-star"></i>
-            ) : stars >= i - 1 + 0.5 ? (
-                <i
-                    key={i}
-                    className="text-yellow-500 fa-regular fa-star-half-stroke"
-                ></i>
-            ) : (
-                <i key={i} className="text-yellow-500 fa-regular fa-star"></i>
-            );
-        rating.push(star);
-    }
-    return <>{rating}</>;
+function Rating({ stars, onRate }) {
+  return (
+    <div className="flex gap-1">
+      {[1, 2, 3, 4, 5].map((i) => (
+        <i
+          key={i}
+          className={`text-yellow-500 cursor-pointer fa-${
+            stars >= i ? "solid" : "regular"
+          } fa-star`}
+          onClick={() => onRate(i)}
+        ></i>
+      ))}
+    </div>
+  );
 }
 
 export default Rating;
