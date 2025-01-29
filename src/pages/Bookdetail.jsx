@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Rating from "../components/Rating";
 import { motion } from "framer-motion";
+import { AnimatePresence } from "motion/react";
 import {
     animationContainer,
     fadeLeftVariant,
@@ -68,6 +69,36 @@ function InfoSection({ book }) {
 }
 
 function ReviewsSection({ book }) {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const isAdmin = user?.isAdmin || false;
+    const accessToken = user?.accessToken || "";
+
+    // Stato locale per le recensioni
+    const [reviews, setReviews] = useState(book.reviews);
+
+    const handleDeleteReview = async (bookId, reviewId) => {
+        if (!accessToken) {
+            alert("Non sei autenticato!");
+            return;
+        }
+
+        try {
+            await axios.delete(`${apiUrl}/${bookId}/${reviewId}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`, // Token per autenticazione
+                },
+            });
+
+            // Rimuove la recensione localmente con animazione
+            setReviews((prevReviews) =>
+                prevReviews.filter((review) => review.id !== reviewId)
+            );
+        } catch (error) {
+            console.error("Errore nella cancellazione:", error);
+            alert("Errore nella cancellazione della recensione!");
+        }
+    };
+
     return (
         <motion.section
             initial="hidden"
@@ -77,21 +108,20 @@ function ReviewsSection({ book }) {
             <motion.h2 variants={fadeLeftVariant} className="text-xl font-bold">
                 Our community reviews
             </motion.h2>
-            <motion.div
-                initial="hidden"
-                animate="visible"
-                className="gap-3 mt-3 flex flex-col"
-            >
-                {book.reviews.map((rev, index) => (
+
+            {/* animazione uscita non funzionante */}
+            <AnimatePresence>
+                {reviews.map((rev, index) => (
                     <motion.div
+                        key={rev.id}
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -100 }} // Animazione di uscita
                         transition={{
                             duration: 0.5,
-                            delay: index * 0.4,
+                            delay: index * 0.2,
                         }}
-                        key={rev.id}
-                        className="p-4 rounded-md border border-slate-400 flex flex-col gap-2 relative"
+                        className="p-4 mt-3 rounded-md border border-slate-400 flex flex-col gap-2 relative"
                     >
                         <p>{rev.text}</p>
                         <span>
@@ -101,13 +131,23 @@ function ReviewsSection({ book }) {
                         <span className="italic absolute bottom-1 right-5">
                             By {rev.name}
                         </span>
-                        <button className="absolute top-4 right-5 bg-red-800 px-4 rounded-md hover:bg-red-600 transition-colors text-white">Delete</button>
+
+                        {/* Bottone visibile solo agli admin */}
+                        {isAdmin && (
+                            <button
+                                onClick={() => handleDeleteReview(book.id, rev.id)}
+                                className="absolute top-4 right-5 bg-red-800 px-4 rounded-md hover:bg-red-600 transition-all text-white hover:scale-110"
+                            >
+                                Delete
+                            </button>
+                        )}
                     </motion.div>
                 ))}
-            </motion.div>
+            </AnimatePresence>
         </motion.section>
     );
 }
+
 
 function FormSection({ bookId, fetchBook }) {
     const [name, setName] = useState("");
