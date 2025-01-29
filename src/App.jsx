@@ -8,6 +8,7 @@ import HeroPage from "./pages/HeroPage";
 import ErrorPage from "./pages/ErrorPage";
 import Auth from "./pages/Auth";
 import { AuthContextProvider } from "./contexts/AuthContext";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                         <Route path="about" Component={About}></Route>
                         <Route path=":id" Component={Bookdetail}></Route>
                         <Route path="auth" Component={Auth} />
+                        <Route path="dashboard" Component={Dashboard} />
                     </Route>
                     <Route path="*" Component={ErrorPage} />
                 </Routes>

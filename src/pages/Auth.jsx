@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const apiLoginUrl = import.meta.env.VITE_LOGIN_URL;
 
 function Auth() {
-    const { setUser } = useAuthContext();
+    const { setIsLogged, setUser } = useAuthContext();
 
     const usernameRef = useRef(null);
     const passwordRef = useRef(null);
@@ -29,6 +29,7 @@ function Auth() {
             })
                 .then((res) => {
                     console.log("login succeded");
+                    setIsLogged(true);
                     setUser(res.data);
                     navigate(-1);
                     window.sessionStorage.setItem(
