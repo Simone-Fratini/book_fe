@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { FaHome, FaRegUserCircle } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
 import { FaMoon } from "react-icons/fa6";
@@ -13,6 +13,7 @@ function Navbar() {
     const { user, setUser } = useAuthContext();
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const [darkMode, setDarkMode] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,7 +42,7 @@ function Navbar() {
                 })
                 .finally(() => {
                     window.history.replaceState({}, "");
-                    navigate(-1);
+                    navigate(location.pathname);
                 });
         }
     };
