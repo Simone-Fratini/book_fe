@@ -98,9 +98,10 @@ function ReviewsSection({ book }) {
                             <strong>Vote</strong>
                             <Rating stars={rev.vote} />
                         </span>
-                        <span className="italic absolute bottom-1 right-3">
+                        <span className="italic absolute bottom-1 right-5">
                             By {rev.name}
                         </span>
+                        <button className="absolute top-4 right-5 bg-red-800 px-4 rounded-md hover:bg-red-600 transition-colors text-white">Delete</button>
                     </motion.div>
                 ))}
             </motion.div>
@@ -153,7 +154,7 @@ function FormSection({ bookId, fetchBook }) {
                 onSubmit={handleSubmit}
                 className="rounded-md pb-2 border border-stone-400 flex flex-col gap-3 [&>*]:px-3"
             >
-                <h2 className="py-3 border-b border-b-stone-400 bg-slate-200 font-semibold text-xl">
+                <h2 className="py-3 border-b border-b-stone-400 bg-slate-200 font-semibold text-xl dark:text-gray-300 dark:bg-gray-800">
                     Aggiungi la tua recensione
                 </h2>
 
@@ -162,7 +163,7 @@ function FormSection({ bookId, fetchBook }) {
                 <div className="flex flex-col gap-2">
                     <label htmlFor="name">Nome</label>
                     <input
-                        className="p-2 rounded-md border border-stone-400"
+                        className="p-2 rounded-md border border-stone-400 dark:bg-gray-800 dark:text-white"
                         type="text"
                         name="name"
                         id="name"
@@ -175,7 +176,7 @@ function FormSection({ bookId, fetchBook }) {
                 <div className="flex flex-col gap-2">
                     <label htmlFor="review">Recensione</label>
                     <textarea
-                        className="p-2 rounded-md border border-stone-400"
+                        className="p-2 rounded-md border border-stone-400 dark:bg-gray-800 dark:text-white"
                         name="review"
                         id="review"
                         value={text}
@@ -187,7 +188,7 @@ function FormSection({ bookId, fetchBook }) {
                 <div className="flex flex-col gap-2">
                     <label htmlFor="vote">Voto (0-5)</label>
                     <input
-                        className="p-2 rounded-md border border-stone-400"
+                        className="p-2 rounded-md border border-stone-400 dark:bg-gray-800 dark:text-white"
                         type="number"
                         name="vote"
                         id="vote"
@@ -202,7 +203,7 @@ function FormSection({ bookId, fetchBook }) {
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="mr-2 rounded-md py-2 px-5 bg-blue-700 text-white self-end scale-90 hover:scale-100 disabled:opacity-50 disabled:hover:scale-90"
+                    className="mr-2 rounded-md py-2 px-10 transition-transform bg-blue-700 text-white self-end scale-90 hover:scale-100 disabled:opacity-50 disabled:hover:scale-90"
                 >
                     {isSubmitting ? "Invio in corso..." : "Invia"}
                 </button>
