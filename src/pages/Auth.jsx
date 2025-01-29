@@ -1,34 +1,40 @@
 import axios from "axios";
 import { useRef } from "react";
-
+import { useAuthContext } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 const apiLoginUrl = import.meta.env.VITE_LOGIN_URL;
 
-const login = (username, password) => {
-    axios({
-        method: "post",
-        url: apiLoginUrl,
-        headers: { "Content-Type": "application/json" },
-        data: {
-            username: username,
-            password: password,
-        },
-    })
-        .then((res) => console.log(res.data))
-        .catch((err) => console.error(err.response.data));
-};
-
 function Auth() {
+    const { setUser } = useAuthContext();
+
     const usernameRef = useRef(null);
     const passwordRef = useRef(null);
 
+    const navigate = useNavigate();
+
+    //  actions
     const handleAuthSubmit = (e) => {
         e.preventDefault();
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
         if (username && password) {
-            login(username, password);
+            axios({
+                method: "post",
+                url: apiLoginUrl,
+                headers: { "Content-Type": "application/json" },
+                data: {
+                    username: username,
+                    password: password,
+                },
+            })
+                .then((res) => {
+                    console.log("login succeded")
+                    setUser(res.data);
+                    navigate("/home");
+                })
+                .catch((err) => console.error(err.response.data));
         } else {
-            console.error("username or password invalid!")
+            console.error("username or password invalid!");
         }
     };
     return (
