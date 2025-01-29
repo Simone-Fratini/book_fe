@@ -59,6 +59,10 @@ function Navbar() {
     };
 
     useEffect(() => {
+        setIsUserOpen(false);
+    }, [user]);
+
+    useEffect(() => {
         if (darkMode) {
             document.documentElement.classList.add("dark");
         } else {

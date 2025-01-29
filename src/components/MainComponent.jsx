@@ -7,26 +7,37 @@ import {
     animationContainer,
 } from "../animations/animationUtils";
 import Loader from "./Loader";
-import { useAuthContext } from "../contexts/AuthContext";
+import { Pagination, Stack } from "@mui/material";
+const apiUrl = import.meta.env.VITE_BOOKS_URL;
 
 export default function MainComponent() {
     const [books, setBooks] = useState([]);
+    const [totalBooks, setTotalBooks] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const [page, setPage] = useState(1);
 
-    const apiUrl = import.meta.env.VITE_BOOKS_URL;
-
-    const fetchBooks = () => {
+    const fetchBooks = (page) => {
         setIsLoading(true);
         axios
-            .get(apiUrl)
-            .then((res) => setBooks(res.data))
+            .get(`${apiUrl}?page=${page}`)
+            .then((res) => {
+                setBooks(res.data.books);
+                setTotalBooks(res.data.total_books);
+                setPage(page)
+            })
             .catch((err) => console.error("Errore nel fetch dei libri:", err))
             .finally(() => setIsLoading(false));
     };
 
     useEffect(() => {
-        fetchBooks();
-    }, []);
+        const currPage = window.sessionStorage.getItem("page");
+        console.log(currPage)
+        if (currPage) {
+            fetchBooks(parseInt(currPage));
+        } else {
+            fetchBooks(1);
+        }
+    }, [page]);
 
     if (isLoading) return <Loader />;
 
@@ -52,7 +63,7 @@ export default function MainComponent() {
                 </motion.h2>
             </motion.div>
 
-            <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:mx-24 auto-rows-fr">
+            <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3 xl:mx-20 2xl:mx-52 auto-rows-fr">
                 {books.map((book, index) => (
                     <motion.div
                         key={book.id}
@@ -68,6 +79,43 @@ export default function MainComponent() {
                     </motion.div>
                 ))}
             </div>
+            {/* pagination */}
+            <section className="flex justify-center mt-8 mb-4">
+                <PaginationRounded
+                    count={Math.ceil(totalBooks / 6)}
+                    setIsLoading={setIsLoading}
+                    setBooks={setBooks}
+                    page={page}
+                    setPage={setPage}
+                />
+            </section>
         </section>
+    );
+}
+
+function PaginationRounded({ count, setIsLoading, setBooks, page, setPage }) {
+    const handleChange = (e, value) => {
+        setIsLoading(true);
+        axios
+            .get(`${apiUrl}?page=${value}`)
+            .then((res) => {
+                setBooks(res.data.books);
+                setPage(value);
+                window.scrollTo(0, 0);
+                window.sessionStorage.setItem("page", value);
+            })
+            .catch((err) => console.error("Errore nel fetch dei libri:", err))
+            .finally(() => setIsLoading(false));
+    };
+    return (
+        <Stack spacing={2}>
+            <Pagination
+                page={page}
+                count={count}
+                variant="outlined"
+                shape="rounded"
+                onChange={handleChange}
+            />
+        </Stack>
     );
 }
