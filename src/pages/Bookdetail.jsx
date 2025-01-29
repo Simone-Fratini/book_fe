@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Rating from "../components/Rating";
 import { motion } from "framer-motion";
+import { AnimatePresence } from "motion/react";
 import {
   animationContainer,
   fadeLeftVariant,
@@ -68,45 +69,85 @@ function InfoSection({ book }) {
 }
 
 function ReviewsSection({ book }) {
-  return (
-    <motion.section
-      initial="hidden"
-      animate="visible"
-      className="mx-8 md:mx-16 my-8"
-    >
-      <motion.h2 variants={fadeLeftVariant} className="text-xl font-bold">
-        Our community reviews
-      </motion.h2>
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        className="gap-3 mt-3 flex flex-col"
-      >
-        {book.reviews.map((rev, index) => (
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{
-              duration: 0.5,
-              delay: index * 0.4,
-            }}
-            key={rev.id}
-            className="p-4 rounded-md border border-slate-400 flex flex-col gap-2 relative"
-          >
-            <p>{rev.text}</p>
-            <span>
-              <strong>Vote</strong>
-              <Rating stars={rev.vote} />
-            </span>
-            <span className="italic absolute bottom-1 right-3">
-              By {rev.name}
-            </span>
-          </motion.div>
-        ))}
-      </motion.div>
-    </motion.section>
-  );
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const isAdmin = user?.isAdmin || false;
+    const accessToken = user?.accessToken || "";
+
+    // Stato locale per le recensioni
+    const [reviews, setReviews] = useState(book.reviews);
+
+    const handleDeleteReview = async (bookId, reviewId) => {
+        if (!accessToken) {
+            alert("Non sei autenticato!");
+            return;
+        }
+
+        try {
+            await axios.delete(`${apiUrl}/${bookId}/${reviewId}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`, // Token per autenticazione
+                },
+            });
+
+            // Rimuove la recensione localmente con animazione
+            setReviews((prevReviews) =>
+                prevReviews.filter((review) => review.id !== reviewId)
+            );
+        } catch (error) {
+            console.error("Errore nella cancellazione:", error);
+            alert("Errore nella cancellazione della recensione!");
+        }
+    };
+
+    return (
+        <motion.section
+            initial="hidden"
+            animate="visible"
+            className="mx-8 md:mx-16 my-8"
+        >
+            <motion.h2 variants={fadeLeftVariant} className="text-xl font-bold">
+                Our community reviews
+            </motion.h2>
+
+            {/* animazione uscita non funzionante */}
+            <AnimatePresence>
+                {reviews.map((rev, index) => (
+                    <motion.div
+                        key={rev.id}
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -100 }} // Animazione di uscita
+                        transition={{
+                            duration: 0.5,
+                            delay: index * 0.2,
+                        }}
+                        className="p-4 mt-3 rounded-md border border-slate-400 flex flex-col gap-2 relative"
+                    >
+                        <p>{rev.text}</p>
+                        <span>
+                            <strong>Vote</strong>
+                            <Rating stars={rev.vote} />
+                        </span>
+                        <span className="italic absolute bottom-1 right-5">
+                            By {rev.name}
+                        </span>
+
+                        {/* Bottone visibile solo agli admin */}
+                        {isAdmin && (
+                            <button
+                                onClick={() => handleDeleteReview(book.id, rev.id)}
+                                className="absolute top-4 right-5 bg-red-800 px-4 rounded-md hover:bg-red-600 transition-all text-white hover:scale-110"
+                            >
+                                Delete
+                            </button>
+                        )}
+                    </motion.div>
+                ))}
+            </AnimatePresence>
+        </motion.section>
+    );
 }
+
 
 function FormSection({ bookId, fetchBook }) {
   const [name, setName] = useState("");
@@ -153,7 +194,7 @@ function FormSection({ bookId, fetchBook }) {
         onSubmit={handleSubmit}
         className="rounded-md pb-2 border border-stone-400 flex flex-col gap-3 [&>*]:px-3"
       >
-        <h2 className="py-3 border-b border-b-stone-400 bg-slate-200 font-semibold text-xl">
+        <h2 className="py-3 border-b border-b-stone-400 bg-slate-200 font-semibold text-xl dark:bg-gray-800 dark:text-white">
           Aggiungi la tua recensione
         </h2>
 
@@ -162,7 +203,7 @@ function FormSection({ bookId, fetchBook }) {
         <div className="flex flex-col gap-2">
           <label htmlFor="name">Nome</label>
           <input
-            className="p-2 rounded-md border border-stone-400"
+            className="p-2 rounded-md border border-stone-400 dark:bg-gray-800 dark:text-white"
             type="text"
             name="name"
             id="name"
@@ -172,10 +213,10 @@ function FormSection({ bookId, fetchBook }) {
           />
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 ">
           <label htmlFor="review">Recensione</label>
           <textarea
-            className="p-2 rounded-md border border-stone-400"
+            className="p-2 rounded-md border border-stone-400 dark:bg-gray-800 dark:text-white"
             name="review"
             id="review"
             value={text}
