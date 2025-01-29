@@ -41,7 +41,7 @@ function Navbar() {
                 })
                 .finally(() => {
                     window.history.replaceState({}, "");
-                    navigate("/home");
+                    navigate(-1);
                 });
         }
     };

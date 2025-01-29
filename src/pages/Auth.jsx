@@ -30,7 +30,7 @@ function Auth() {
                 .then((res) => {
                     console.log("login succeded");
                     setUser(res.data);
-                    navigate("/home", { state: res.data });
+                    navigate(-1, { state: res.data });
                 })
                 .catch((err) => console.error(err.response.data));
         } else {
