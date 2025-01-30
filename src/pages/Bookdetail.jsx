@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Rating from "../components/Rating";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "motion/react";
@@ -18,12 +18,14 @@ function Bookdetail() {
     const [book, setBook] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
+    const navigate = useNavigate();
+
     const fetchBook = () => {
         setIsLoading(true);
         axios
             .get(`${apiUrl}/${id}`)
             .then((res) => setBook(res.data))
-            .catch((err) => console.error(err))
+            .catch((err) => navigate("/notFound"))
             .finally(() => setIsLoading(false));
     };
 
