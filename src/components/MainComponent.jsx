@@ -7,26 +7,44 @@ import {
     animationContainer,
 } from "../animations/animationUtils";
 import Loader from "./Loader";
-import { useAuthContext } from "../contexts/AuthContext";
+import PaginationRounded from "./PaginationRounded";
+const apiUrl = import.meta.env.VITE_BOOKS_URL;
 
 export default function MainComponent() {
     const [books, setBooks] = useState([]);
+    const [totalBooks, setTotalBooks] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const [page, setPage] = useState(1);
+    const [isPageChanged, setIsPageChanged] = useState(false);
 
-    const apiUrl = import.meta.env.VITE_BOOKS_URL;
-
-    const fetchBooks = () => {
+    const fetchBooks = (page) => {
         setIsLoading(true);
         axios
-            .get(apiUrl)
-            .then((res) => setBooks(res.data))
+            .get(`${apiUrl}?page=${page}`)
+            .then((res) => {
+                setBooks(res.data.books);
+                setTotalBooks(res.data.total_books);
+                window.scrollTo(0, 0);
+                window.sessionStorage.setItem("page", page);
+            })
             .catch((err) => console.error("Errore nel fetch dei libri:", err))
-            .finally(() => setIsLoading(false));
+            .finally(() => {
+                setIsLoading(false);
+                setIsPageChanged(false);
+            });
     };
 
     useEffect(() => {
-        fetchBooks();
-    }, []);
+        if (isPageChanged) {
+            // situazione paginazione libri 
+            fetchBooks(page);
+        } else {
+            // situazione navigazione tra routes diversi
+            const currPage = parseInt(window.sessionStorage.getItem("page"));
+            setPage(currPage)
+            fetchBooks(currPage || 1);
+        }
+    }, [page]);
 
     if (isLoading) return <Loader />;
 
@@ -52,7 +70,7 @@ export default function MainComponent() {
                 </motion.h2>
             </motion.div>
 
-            <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:mx-24 auto-rows-fr">
+            <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3 xl:mx-20 2xl:mx-52 auto-rows-fr">
                 {books.map((book, index) => (
                     <motion.div
                         key={book.id}
@@ -67,6 +85,17 @@ export default function MainComponent() {
                         <Card book={book} />
                     </motion.div>
                 ))}
+            </div>
+            {/* pagination */}
+            <div className="flex justify-center mt-8 mb-4">
+                <PaginationRounded
+                    count={Math.ceil(totalBooks / 6)}
+                    setIsLoading={setIsLoading}
+                    setBooks={setBooks}
+                    page={page}
+                    setPage={setPage}
+                    setIsPageChanged={setIsPageChanged}
+                />
             </div>
         </section>
     );
