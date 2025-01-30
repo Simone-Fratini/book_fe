@@ -152,28 +152,32 @@ function FormSection({ bookId, fetchBook }) {
   const [text, setText] = useState("");
   const [vote, setVote] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError("");
+    setError({});
+
+    const newErrors = {};
 
     if (name.trim().length < 3) {
-      setError("Il nome deve avere almeno 3 caratteri.");
-      setIsSubmitting(false);
-      return;
+      newErrors.name = "Il nome deve avere almeno 3 caratteri.";
     }
 
     if (text.trim().length < 10) {
-      setError("La recensione deve contenere almeno 10 caratteri.");
-      setIsSubmitting(false);
-      return;
+      newErrors.text = "La recensione deve contenere almeno 10 caratteri.";
     }
 
     const voteValue = parseInt(vote, 10);
     if (isNaN(voteValue) || voteValue < 0 || voteValue > 5) {
-      setError("Il rating è obbligatorio");
+      newErrors.vote = "Il rating è obbligatorio";
+    }
+
+    console.log(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      setError(newErrors);
       setIsSubmitting(false);
       return;
     }
@@ -208,12 +212,17 @@ function FormSection({ bookId, fetchBook }) {
           Aggiungi la tua recensione
         </h2>
 
-        {error && <div className="text-red-500 px-3">{error}</div>}
-
         <div className="flex flex-col gap-2">
           <label htmlFor="name">Nome</label>
+          {error.name && (
+            <span className="text-red-500 flex items-center gap-1">
+              ⚠️ {error.name}
+            </span>
+          )}
           <input
-            className="p-2 rounded-md border border-stone-400 dark:bg-gray-800 dark:text-white"
+            className={`p-2 rounded-md border ${
+              error.name ? "border-red-500" : "border-stone-400"
+            } dark:bg-gray-800 dark:text-white`}
             type="text"
             name="name"
             id="name"
@@ -224,8 +233,15 @@ function FormSection({ bookId, fetchBook }) {
 
         <div className="flex flex-col gap-2 ">
           <label htmlFor="review">Recensione</label>
+          {error.text && (
+            <span className="text-red-500 flex items-center gap-1">
+              ⚠️ {error.text}
+            </span>
+          )}
           <textarea
-            className="p-2 rounded-md border border-stone-400 dark:bg-gray-800 dark:text-white"
+            className={`p-2 rounded-md border ${
+              error.text ? "border-red-500" : "border-stone-400"
+            } dark:bg-gray-800 dark:text-white`}
             name="review"
             id="review"
             value={text}
@@ -235,6 +251,11 @@ function FormSection({ bookId, fetchBook }) {
 
         <div className="flex flex-col gap-2">
           <div className="text-white">Rating</div>
+          {error.vote && (
+            <span className="text-red-500 flex items-center gap-1">
+              ⚠️ {error.vote}
+            </span>
+          )}
           <Rating stars={vote} onRate={setVote} />
         </div>
 
